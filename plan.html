@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class=""><head>
+
+  <meta charset="UTF-8">
+  <title>CodePen Demo</title>
+
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+  <link rel="mask-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+  <link rel="canonical" href="https://codepen.io/pen/">
+
+  
+  
+
+  <style id="INLINE_PEN_STYLESHEET_ID">
+    
+  </style>
+
+  
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-f07739098a39bd4e74ddd974652dac904146f33fdc1ecab356e8c809a05faccb.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-100b2a29d7a68d0f5c9eb0b3f9e63783410ea00dcab106def20a0ab3cf4a8804.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+</head>
+
+<body>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f1419">
+<title>План</title>
+<style>
+  :root{
+    --bg:#0f1419; --card:#1a2129; --card2:#212a34; --text:#e6edf3;
+    --muted:#8b98a5; --accent:#3fb950; --accent2:#58a6ff; --border:#2d3742;
+    --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+    --sl:env(safe-area-inset-left,0px); --sr:env(safe-area-inset-right,0px);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{
+    margin:0; padding:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+    font-size:17px; line-height:1.4; -webkit-text-size-adjust:100%;
+  }
+  body{
+    padding: calc(var(--st) + 12px) calc(var(--sr) + 14px) calc(var(--sb) + 28px) calc(var(--sl) + 14px);
+    max-width:520px; margin:0 auto; width:100%; overflow-x:hidden;
+  }
+  h1{font-size:23px; margin:0 0 2px; letter-spacing:-.4px;}
+  h2{font-size:18px; margin:24px 0 10px; color:var(--accent2);}
+  .sub{color:var(--muted); font-size:14px; margin-bottom:4px;}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 10px; margin-bottom:14px;}
+  /* строки вместо таблиц */
+  .row{display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid var(--border); min-height:52px;}
+  .row:last-child{border-bottom:none;}
+  .row .label{flex:1; font-size:15px; line-height:1.25; min-width:0;}
+  .row .label .sets{color:var(--muted); font-size:12px; display:block; margin-top:2px;}
+  .days{display:flex; gap:4px; flex-shrink:0;}
+  .chk{
+    display:flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:10px; border:2px solid var(--border);
+    background:var(--card2); cursor:pointer; font-size:16px; color:transparent;
+    user-select:none; -webkit-user-select:none; transition:.12s; flex-shrink:0;
+  }
+  .chk.on{background:var(--accent); border-color:var(--accent); color:#0f1419;}
+  .chk:active{transform:scale(.93);}
+  .chk.big{width:46px; height:46px;}
+  /* подпись дней над колонками чекбоксов */
+  .dayhead{display:flex; justify-content:flex-end; gap:4px; padding-bottom:4px; color:var(--muted); font-size:11px;}
+  .dayhead span{width:40px; text-align:center;}
+  .tag{display:inline-block; background:var(--card2); color:var(--muted); font-size:11px; padding:2px 8px; border-radius:20px; margin-left:4px; vertical-align:middle;}
+  .weight-row{display:flex; gap:8px; align-items:center; margin-top:6px;}
+  input[type=number]{
+    flex:1; background:var(--card2); border:1px solid var(--border); color:var(--text);
+    padding:14px; border-radius:12px; font-size:20px; text-align:center;
+    -webkit-appearance:none; appearance:none; min-width:0;
+  }
+  input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none; margin:0;}
+  button{
+    background:var(--accent2); color:#0f1419; border:none; padding:14px 16px;
+    border-radius:12px; font-size:16px; font-weight:700; cursor:pointer;
+    -webkit-appearance:none; appearance:none; min-height:52px; white-space:nowrap;
+  }
+  button:active{transform:scale(.97);}
+  .btn2{background:var(--card2); color:var(--text); border:1px solid var(--border); font-weight:600; width:100%; margin-top:8px;}
+  .btn-green{background:var(--accent);}
+  .progress{height:12px; background:var(--card2); border-radius:8px; overflow:hidden; margin-top:12px;}
+  .progress > div{height:100%; background:linear-gradient(90deg,#3fb950,#58a6ff); width:0%; transition:width .3s;}
+  .stat{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-top:8px; gap:8px; flex-wrap:wrap;}
+  .hint{font-size:13px; color:var(--muted); margin-top:10px; word-break:break-word;}
+  .reset{background:transparent; color:var(--muted); border:1px solid var(--border); font-weight:400; font-size:14px; min-height:48px; width:100%;}
+  .chart-wrap{margin-top:12px; border-radius:12px; overflow:hidden; background:var(--card2);}
+  canvas{width:100%; height:200px; display:block;}
+  textarea{width:100%; height:70px; background:var(--card2); border:1px solid var(--border); color:var(--text);
+    border-radius:10px; padding:8px; font-size:12px; font-family:monospace; resize:none; margin-top:8px;}
+</style>
+
+
+
+<h1>План: 121 → ~85 кг</h1>
+<div class="sub">30 лет · М · 185 см · цель 35–40 кг за 10–12 мес</div>
+
+<h2>⚖️ Вес и прогресс</h2>
+<div class="card">
+  <div class="weight-row">
+    <input type="number" id="weightInput" placeholder="Вес, кг" step="0.1" inputmode="decimal">
+    <button onclick="saveWeight()">Записать</button>
+  </div>
+  <div class="hint">Старт: 121 кг · Цель: 85 кг</div>
+  <div class="progress"><div id="bar" style="width: 0%;"></div></div>
+  <div class="stat"><span id="lost">Сброшено: 0.0 кг</span><span id="left">Осталось: 36.0 кг</span></div>
+  <div class="chart-wrap"><canvas id="chart" width="1029" height="600" style="width: 343px; height: 200px;"></canvas></div>
+  <div class="hint" id="history"></div>
+</div>
+
+<h2>🍽 Питание — каждый день</h2>
+<div class="card">
+  <div class="dayhead"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+  <div id="foodList"><div class="row"><div class="label">Белковый завтрак<span class="sets">яйца/творог</span></div><div class="days"><div class="chk  " onclick="toggle('food_0_0')">✓</div><div class="chk  " onclick="toggle('food_0_1')">✓</div><div class="chk  " onclick="toggle('food_0_2')">✓</div><div class="chk  " onclick="toggle('food_0_3')">✓</div><div class="chk  " onclick="toggle('food_0_4')">✓</div><div class="chk  " onclick="toggle('food_0_5')">✓</div><div class="chk  " onclick="toggle('food_0_6')">✓</div></div></div><div class="row"><div class="label">Белок в обед<span class="sets">150–200 г</span></div><div class="days"><div class="chk  " onclick="toggle('food_1_0')">✓</div><div class="chk  " onclick="toggle('food_1_1')">✓</div><div class="chk  " onclick="toggle('food_1_2')">✓</div><div class="chk  " onclick="toggle('food_1_3')">✓</div><div class="chk  " onclick="toggle('food_1_4')">✓</div><div class="chk  " onclick="toggle('food_1_5')">✓</div><div class="chk  " onclick="toggle('food_1_6')">✓</div></div></div><div class="row"><div class="label">Белок в ужин</div><div class="days"><div class="chk  " onclick="toggle('food_2_0')">✓</div><div class="chk  " onclick="toggle('food_2_1')">✓</div><div class="chk  " onclick="toggle('food_2_2')">✓</div><div class="chk  " onclick="toggle('food_2_3')">✓</div><div class="chk  " onclick="toggle('food_2_4')">✓</div><div class="chk  " onclick="toggle('food_2_5')">✓</div><div class="chk  " onclick="toggle('food_2_6')">✓</div></div></div><div class="row"><div class="label">160–180 г белка за день</div><div class="days"><div class="chk  " onclick="toggle('food_3_0')">✓</div><div class="chk  " onclick="toggle('food_3_1')">✓</div><div class="chk  " onclick="toggle('food_3_2')">✓</div><div class="chk  " onclick="toggle('food_3_3')">✓</div><div class="chk  " onclick="toggle('food_3_4')">✓</div><div class="chk  " onclick="toggle('food_3_5')">✓</div><div class="chk  " onclick="toggle('food_3_6')">✓</div></div></div><div class="row"><div class="label">Сладкое/фастфуд ≤ 1 раза</div><div class="days"><div class="chk  " onclick="toggle('food_4_0')">✓</div><div class="chk  " onclick="toggle('food_4_1')">✓</div><div class="chk  " onclick="toggle('food_4_2')">✓</div><div class="chk  " onclick="toggle('food_4_3')">✓</div><div class="chk  " onclick="toggle('food_4_4')">✓</div><div class="chk  " onclick="toggle('food_4_5')">✓</div><div class="chk  " onclick="toggle('food_4_6')">✓</div></div></div><div class="row"><div class="label">Вода 2–2,5 л</div><div class="days"><div class="chk  " onclick="toggle('food_5_0')">✓</div><div class="chk  " onclick="toggle('food_5_1')">✓</div><div class="chk  " onclick="toggle('food_5_2')">✓</div><div class="chk  " onclick="toggle('food_5_3')">✓</div><div class="chk  " onclick="toggle('food_5_4')">✓</div><div class="chk  " onclick="toggle('food_5_5')">✓</div><div class="chk  " onclick="toggle('food_5_6')">✓</div></div></div></div>
+</div>
+
+<h2>🏋️ Тренировка A <span class="tag">Пн</span></h2>
+<div class="card" id="workoutA"><div class="row"><div class="chk big " onclick="toggle('A_0')">✓</div><div class="label">Присед на стул с гантелью<span class="sets">3×10–15 · 10 кг у груди</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_1')">✓</div><div class="label">Жим гантелей лёжа на полу<span class="sets">3×8–12 · 10 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_2')">✓</div><div class="label">Тяга гантели в наклоне одной рукой<span class="sets">3×10–12 · 10–18 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_3')">✓</div><div class="label">Ягодичный мост<span class="sets">3×12–15 · 18 кг / резинка</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_4')">✓</div><div class="label">Планка<span class="sets">3×30–45 сек</span></div></div></div>
+
+<h2>🏋️ Тренировка B <span class="tag">Ср</span></h2>
+<div class="card" id="workoutB"><div class="row"><div class="chk big " onclick="toggle('B_0')">✓</div><div class="label">Румынская тяга с гантелями<span class="sets">3×10–12 · 10–18 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_1')">✓</div><div class="label">Жим гантелей стоя/сидя<span class="sets">3×8–12 · 10 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_2')">✓</div><div class="label">Тяга резинки к поясу<span class="sets">3×12–15</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_3')">✓</div><div class="label">Подъём на ступеньку / выпад назад<span class="sets">3×8–10 на ногу</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_4')">✓</div><div class="label">Боковая планка<span class="sets">3×30 сек</span></div></div></div>
+
+<h2>🚶 Шаги и ходьба</h2>
+<div class="card">
+  <div class="dayhead"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+  <div id="walkList"><div class="row"><div class="label">8–10 тыс. шагов</div><div class="days"><div class="chk  " onclick="toggle('walk_0_0')">✓</div><div class="chk  " onclick="toggle('walk_0_1')">✓</div><div class="chk  " onclick="toggle('walk_0_2')">✓</div><div class="chk  " onclick="toggle('walk_0_3')">✓</div><div class="chk  " onclick="toggle('walk_0_4')">✓</div><div class="chk  " onclick="toggle('walk_0_5')">✓</div><div class="chk  " onclick="toggle('walk_0_6')">✓</div></div></div><div class="row"><div class="label">Ходьба 30–60 мин</div><div class="days"><div class="chk  " onclick="toggle('walk_1_0')">✓</div><div class="chk  " onclick="toggle('walk_1_1')">✓</div><div class="chk  " onclick="toggle('walk_1_2')">✓</div><div class="chk  " onclick="toggle('walk_1_3')">✓</div><div class="chk  " onclick="toggle('walk_1_4')">✓</div><div class="chk  " onclick="toggle('walk_1_5')">✓</div><div class="chk  " onclick="toggle('walk_1_6')">✓</div></div></div></div>
+</div>
+
+<h2>📊 Раз в неделю</h2>
+<div class="card" id="weekly"><div class="row"><div class="chk big " onclick="toggle('wk_0')">✓</div><div class="label">Взвеситься утром натощак</div></div><div class="row"><div class="chk big " onclick="toggle('wk_1')">✓</div><div class="label">Записать вес</div></div><div class="row"><div class="chk big " onclick="toggle('wk_2')">✓</div><div class="label">Замерить живот/грудь/бёдра</div></div><div class="row"><div class="chk big " onclick="toggle('wk_3')">✓</div><div class="label">Сфотографироваться</div></div><div class="row"><div class="chk big " onclick="toggle('wk_4')">✓</div><div class="label">Спланировать меню на неделю</div></div></div>
+
+<h2>💾 Данные</h2>
+<div class="card">
+  <button class="btn2 btn-green" onclick="downloadFile()">Скачать файл плана (сохранит данные)</button>
+  <button class="btn2" onclick="copyData()">Скопировать данные (бэкап)</button>
+  <textarea id="backup" placeholder="Сюда можно вставить бэкап и нажать 'Восстановить'" spellcheck="false"></textarea>
+  <button class="btn2" onclick="restoreData()">Восстановить из поля выше</button>
+  <div class="hint" id="saveInfo"></div>
+</div>
+
+<div style="text-align:center; margin:18px 0 8px;">
+  <button class="reset" onclick="resetAll()">Сбросить всё</button>
+</div>
+
+<script>
+const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const KEY = 'fitnessPlan_v4';
+let state = load();
+
+function load(){
+  try{ return JSON.parse(localStorage.getItem(KEY)) || {checks:{}, weights:[]}; }
+  catch(e){ return {checks:{}, weights:[]}; }
+}
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+  const el = document.getElementById('saveInfo');
+  if(el) el.textContent = 'Сохранено: ' + new Date().toLocaleString('ru-RU');
+}
+function toggle(id){
+  state.checks[id] = !state.checks[id];
+  save(); render();
+}
+function chk(id, big){
+  const on = !!state.checks[id];
+  return `<div class="chk ${big?'big':''} ${on?'on':''}" onclick="toggle('${id}')">✓</div>`;
+}
+
+const FOOD = [
+  ['Белковый завтрак','яйца/творог'],
+  ['Белок в обед','150–200 г'],
+  ['Белок в ужин',''],
+  ['160–180 г белка за день',''],
+  ['Сладкое/фастфуд ≤ 1 раза',''],
+  ['Вода 2–2,5 л',''],
+];
+const WALK = [
+  ['8–10 тыс. шагов',''],
+  ['Ходьба 30–60 мин',''],
+];
+const A = [
+  ['Присед на стул с гантелью','3×10–15 · 10 кг у груди'],
+  ['Жим гантелей лёжа на полу','3×8–12 · 10 кг'],
+  ['Тяга гантели в наклоне одной рукой','3×10–12 · 10–18 кг'],
+  ['Ягодичный мост','3×12–15 · 18 кг / резинка'],
+  ['Планка','3×30–45 сек'],
+];
+const B = [
+  ['Румынская тяга с гантелями','3×10–12 · 10–18 кг'],
+  ['Жим гантелей стоя/сидя','3×8–12 · 10 кг'],
+  ['Тяга резинки к поясу','3×12–15'],
+  ['Подъём на ступеньку / выпад назад','3×8–10 на ногу'],
+  ['Боковая планка','3×30 сек'],
+];
+const WEEKLY = [
+  ['Взвеситься утром натощак',''],
+  ['Записать вес',''],
+  ['Замерить живот/грудь/бёдра',''],
+  ['Сфотографироваться',''],
+  ['Спланировать меню на неделю',''],
+];
+
+function weekRows(rows, prefix){
+  let html = '';
+  rows.forEach((r, ri) => {
+    let days = '';
+    DAYS.forEach((d, di) => { days += chk(prefix+'_'+ri+'_'+di); });
+    html += `<div class="row"><div class="label">${r[0]}${r[1]?'<span class="sets">'+r[1]+'</span>':''}</div><div class="days">${days}</div></div>`;
+  });
+  return html;
+}
+function exList(rows, prefix){
+  let html = '';
+  rows.forEach((r, i) => {
+    const sets = r[1] ? '<span class="sets">'+r[1]+'</span>' : '';
+    html += `<div class="row">${chk(prefix+'_'+i, true)}<div class="label">${r[0]}${sets}</div></div>`;
+  });
+  return html;
+}
+
+function render(){
+  document.getElementById('foodList').innerHTML = weekRows(FOOD, 'food');
+  document.getElementById('walkList').innerHTML = weekRows(WALK, 'walk');
+  document.getElementById('workoutA').innerHTML = exList(A, 'A');
+  document.getElementById('workoutB').innerHTML = exList(B, 'B');
+  document.getElementById('weekly').innerHTML = exList(WEEKLY, 'wk');
+  renderWeight();
+}
+
+function saveWeight(){
+  const v = parseFloat(document.getElementById('weightInput').value.replace(',','.'));
+  if(!v || v < 50 || v > 250) return;
+  state.weights.push({w:v, t:new Date().toISOString()});
+  save();
+  document.getElementById('weightInput').value = '';
+  document.getElementById('weightInput').blur();
+  renderWeight();
+}
+
+function renderWeight(){
+  const start = 121, goal = 85;
+  const ws = state.weights;
+  const cur = ws.length ? ws[ws.length-1].w : start;
+  const lost = Math.max(0, start - cur);
+  const pct = Math.min(100, (lost/(start-goal))*100);
+  document.getElementById('bar').style.width = pct.toFixed(1)+'%';
+  document.getElementById('lost').textContent = 'Сброшено: '+lost.toFixed(1)+' кг';
+  document.getElementById('left').textContent = 'Осталось: '+Math.max(0,(cur-goal)).toFixed(1)+' кг';
+  let h = '';
+  if(ws.length) h = 'Последние: ' + ws.slice(-5).reverse().map(x=>x.w+' кг').join(' · ');
+  document.getElementById('history').textContent = h;
+  drawChart();
+}
+
+function drawChart(){
+  const c = document.getElementById('chart');
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = c.getBoundingClientRect();
+  const W = Math.max(200, rect.width), H = 200;
+  c.width = W*dpr; c.height = H*dpr;
+  c.style.width = W+'px'; c.style.height = H+'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,W,H);
+
+  const now = Date.now();
+  const monthAgo = now - 30*24*3600*1000;
+  const pts = state.weights.map(x=>({w:x.w,t:new Date(x.t).getTime()}))
+    .filter(p=>p.t>=monthAgo).sort((a,b)=>a.t-b.t);
+
+  ctx.font = '11px -apple-system, sans-serif';
+  ctx.fillStyle = '#8b98a5'; ctx.strokeStyle = '#2d3742'; ctx.lineWidth = 1;
+
+  const vals = pts.length?pts.map(p=>p.w):[121];
+  const maxW = Math.max(...vals,121)+1;
+  const minW = Math.min(...vals,85)-1;
+  const rangeW = Math.max(1,maxW-minW);
+  const padL=36,padR=10,padT=14,padB=22;
+
+  for(let i=0;i<=4;i++){
+    const y = padT+(H-padT-padB)*i/4;
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
+    ctx.fillText((maxW-rangeW*i/4).toFixed(0), 6, y+4);
+  }
+  if(pts.length<1){
+    ctx.fillStyle='#8b98a5'; ctx.font='13px -apple-system, sans-serif';
+    ctx.fillText('Добавь вес — появится график', padL+8, H/2);
+    return;
+  }
+  const minT = Math.min(...pts.map(p=>p.t), monthAgo);
+  const maxT = Math.max(...pts.map(p=>p.t), now);
+  const rangeT = Math.max(1,maxT-minT);
+  const x = t => padL+(t-minT)/rangeT*(W-padL-padR);
+  const y = w => padT+(maxW-w)/rangeW*(H-padT-padB);
+
+  const grad = ctx.createLinearGradient(0,padT,0,H-padB);
+  grad.addColorStop(0,'rgba(88,166,255,.28)');
+  grad.addColorStop(1,'rgba(88,166,255,0)');
+  ctx.beginPath();
+  pts.forEach((p,i)=>{const px=x(p.t),py=y(p.w); i?ctx.lineTo(px,py):ctx.moveTo(px,py);});
+  ctx.lineTo(x(pts[pts.length-1].t),H-padB);
+  ctx.lineTo(x(pts[0].t),H-padB);
+  ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+
+  ctx.strokeStyle='#58a6ff'; ctx.lineWidth=2.5; ctx.lineJoin='round';
+  ctx.beginPath();
+  pts.forEach((p,i)=>{const px=x(p.t),py=y(p.w); i?ctx.lineTo(px,py):ctx.moveTo(px,py);});
+  ctx.stroke();
+  ctx.fillStyle='#3fb950';
+  pts.forEach(p=>{ctx.beginPath();ctx.arc(x(p.t),y(p.w),3.5,0,Math.PI*2);ctx.fill();});
+}
+
+/* ==== Скачивание файла и бэкап ==== */
+function downloadFile(){
+  // собираем текущую страницу как есть
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'plan.html';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();}, 500);
+}
+function copyData(){
+  const txt = JSON.stringify(state);
+  const ta = document.getElementById('backup');
+  ta.value = txt;
+  ta.select();
+  try{ navigator.clipboard?.writeText(txt); }catch(e){}
+  alert('Данные в поле ниже. Скопируй их и сохрани (например, в заметки).');
+}
+function restoreData(){
+  const txt = document.getElementById('backup').value.trim();
+  if(!txt) return;
+  try{
+    const obj = JSON.parse(txt);
+    if(obj && obj.checks){ state = obj; save(); render(); alert('Восстановлено'); }
+    else alert('Не похоже на бэкап');
+  }catch(e){ alert('Ошибка: неверный формат'); }
+}
+function resetAll(){
+  if(!confirm('Сбросить все отметки и вес?')) return;
+  state = {checks:{}, weights:[]};
+  save(); render();
+}
+
+window.addEventListener('resize', ()=>{ if(state.weights.length) drawChart(); });
+render();
+</script>
+
+
+  
+  
+
+
+</body></html>
