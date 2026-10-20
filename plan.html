@@ -1,32 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head>
-
-  <meta charset="UTF-8">
-  <title>CodePen Demo</title>
-
-  <meta name="robots" content="noindex">
-
-  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
-  <link rel="mask-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
-  <link rel="canonical" href="https://codepen.io/pen/">
-
-  
-  
-
-  <style id="INLINE_PEN_STYLESHEET_ID">
-    
-  </style>
-
-  
-<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-f07739098a39bd4e74ddd974652dac904146f33fdc1ecab356e8c809a05faccb.js"></script>
-<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-100b2a29d7a68d0f5c9eb0b3f9e63783410ea00dcab106def20a0ab3cf4a8804.js"></script>
-<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
-</head>
-
-<body>
-  
-
-
+<html lang="ru">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -54,24 +28,35 @@
   h2{font-size:18px; margin:24px 0 10px; color:var(--accent2);}
   .sub{color:var(--muted); font-size:14px; margin-bottom:4px;}
   .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 10px; margin-bottom:14px;}
-  /* строки вместо таблиц */
-  .row{display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid var(--border); min-height:52px;}
-  .row:last-child{border-bottom:none;}
-  .row .label{flex:1; font-size:15px; line-height:1.25; min-width:0;}
-  .row .label .sets{color:var(--muted); font-size:12px; display:block; margin-top:2px;}
-  .days{display:flex; gap:4px; flex-shrink:0;}
+
+  /* --- Питание: карточка на пункт --- */
+  .habit{
+    background:var(--card2); border:1px solid var(--border); border-radius:12px;
+    padding:12px 12px 10px; margin-bottom:10px;
+  }
+  .habit:last-child{margin-bottom:0;}
+  .habit .title{font-size:15px; font-weight:600; margin-bottom:2px;}
+  .habit .desc{font-size:12px; color:var(--muted); margin-bottom:10px;}
+  .habit .days{display:grid; grid-template-columns:repeat(7,1fr); gap:6px;}
+  .habit .days .cell{display:flex; flex-direction:column; align-items:center; gap:4px;}
+  .habit .days .cell span{font-size:10px; color:var(--muted);}
   .chk{
     display:flex; align-items:center; justify-content:center;
-    width:40px; height:40px; border-radius:10px; border:2px solid var(--border);
-    background:var(--card2); cursor:pointer; font-size:16px; color:transparent;
-    user-select:none; -webkit-user-select:none; transition:.12s; flex-shrink:0;
+    width:100%; aspect-ratio:1; max-width:40px; border-radius:9px;
+    border:2px solid var(--border); background:var(--card);
+    cursor:pointer; font-size:15px; color:transparent;
+    user-select:none; -webkit-user-select:none; transition:.12s;
   }
   .chk.on{background:var(--accent); border-color:var(--accent); color:#0f1419;}
   .chk:active{transform:scale(.93);}
-  .chk.big{width:46px; height:46px;}
-  /* подпись дней над колонками чекбоксов */
-  .dayhead{display:flex; justify-content:flex-end; gap:4px; padding-bottom:4px; color:var(--muted); font-size:11px;}
-  .dayhead span{width:40px; text-align:center;}
+  .chk.big{width:46px; height:46px; aspect-ratio:auto; flex-shrink:0;}
+
+  /* --- Упражнения и недельные пункты --- */
+  .row{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); min-height:56px;}
+  .row:last-child{border-bottom:none;}
+  .row .label{flex:1; font-size:15px; line-height:1.25; min-width:0;}
+  .row .label .sets{color:var(--muted); font-size:12px; display:block; margin-top:2px;}
+
   .tag{display:inline-block; background:var(--card2); color:var(--muted); font-size:11px; padding:2px 8px; border-radius:20px; margin-left:4px; vertical-align:middle;}
   .weight-row{display:flex; gap:8px; align-items:center; margin-top:6px;}
   input[type=number]{
@@ -88,6 +73,7 @@
   button:active{transform:scale(.97);}
   .btn2{background:var(--card2); color:var(--text); border:1px solid var(--border); font-weight:600; width:100%; margin-top:8px;}
   .btn-green{background:var(--accent);}
+  .btn-warn{background:#d29922; color:#0f1419; width:100%; margin-top:8px; font-weight:700;}
   .progress{height:12px; background:var(--card2); border-radius:8px; overflow:hidden; margin-top:12px;}
   .progress > div{height:100%; background:linear-gradient(90deg,#3fb950,#58a6ff); width:0%; transition:width .3s;}
   .stat{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-top:8px; gap:8px; flex-wrap:wrap;}
@@ -98,8 +84,8 @@
   textarea{width:100%; height:70px; background:var(--card2); border:1px solid var(--border); color:var(--text);
     border-radius:10px; padding:8px; font-size:12px; font-family:monospace; resize:none; margin-top:8px;}
 </style>
-
-
+</head>
+<body>
 
 <h1>План: 121 → ~85 кг</h1>
 <div class="sub">30 лет · М · 185 см · цель 35–40 кг за 10–12 мес</div>
@@ -111,49 +97,49 @@
     <button onclick="saveWeight()">Записать</button>
   </div>
   <div class="hint">Старт: 121 кг · Цель: 85 кг</div>
-  <div class="progress"><div id="bar" style="width: 0%;"></div></div>
-  <div class="stat"><span id="lost">Сброшено: 0.0 кг</span><span id="left">Осталось: 36.0 кг</span></div>
-  <div class="chart-wrap"><canvas id="chart" width="1029" height="600" style="width: 343px; height: 200px;"></canvas></div>
+  <div class="progress"><div id="bar"></div></div>
+  <div class="stat"><span id="lost">Сброшено: 0 кг</span><span id="left">Осталось: 36 кг</span></div>
+  <div class="chart-wrap"><canvas id="chart"></canvas></div>
   <div class="hint" id="history"></div>
 </div>
 
 <h2>🍽 Питание — каждый день</h2>
-<div class="card">
-  <div class="dayhead"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
-  <div id="foodList"><div class="row"><div class="label">Белковый завтрак<span class="sets">яйца/творог</span></div><div class="days"><div class="chk  " onclick="toggle('food_0_0')">✓</div><div class="chk  " onclick="toggle('food_0_1')">✓</div><div class="chk  " onclick="toggle('food_0_2')">✓</div><div class="chk  " onclick="toggle('food_0_3')">✓</div><div class="chk  " onclick="toggle('food_0_4')">✓</div><div class="chk  " onclick="toggle('food_0_5')">✓</div><div class="chk  " onclick="toggle('food_0_6')">✓</div></div></div><div class="row"><div class="label">Белок в обед<span class="sets">150–200 г</span></div><div class="days"><div class="chk  " onclick="toggle('food_1_0')">✓</div><div class="chk  " onclick="toggle('food_1_1')">✓</div><div class="chk  " onclick="toggle('food_1_2')">✓</div><div class="chk  " onclick="toggle('food_1_3')">✓</div><div class="chk  " onclick="toggle('food_1_4')">✓</div><div class="chk  " onclick="toggle('food_1_5')">✓</div><div class="chk  " onclick="toggle('food_1_6')">✓</div></div></div><div class="row"><div class="label">Белок в ужин</div><div class="days"><div class="chk  " onclick="toggle('food_2_0')">✓</div><div class="chk  " onclick="toggle('food_2_1')">✓</div><div class="chk  " onclick="toggle('food_2_2')">✓</div><div class="chk  " onclick="toggle('food_2_3')">✓</div><div class="chk  " onclick="toggle('food_2_4')">✓</div><div class="chk  " onclick="toggle('food_2_5')">✓</div><div class="chk  " onclick="toggle('food_2_6')">✓</div></div></div><div class="row"><div class="label">160–180 г белка за день</div><div class="days"><div class="chk  " onclick="toggle('food_3_0')">✓</div><div class="chk  " onclick="toggle('food_3_1')">✓</div><div class="chk  " onclick="toggle('food_3_2')">✓</div><div class="chk  " onclick="toggle('food_3_3')">✓</div><div class="chk  " onclick="toggle('food_3_4')">✓</div><div class="chk  " onclick="toggle('food_3_5')">✓</div><div class="chk  " onclick="toggle('food_3_6')">✓</div></div></div><div class="row"><div class="label">Сладкое/фастфуд ≤ 1 раза</div><div class="days"><div class="chk  " onclick="toggle('food_4_0')">✓</div><div class="chk  " onclick="toggle('food_4_1')">✓</div><div class="chk  " onclick="toggle('food_4_2')">✓</div><div class="chk  " onclick="toggle('food_4_3')">✓</div><div class="chk  " onclick="toggle('food_4_4')">✓</div><div class="chk  " onclick="toggle('food_4_5')">✓</div><div class="chk  " onclick="toggle('food_4_6')">✓</div></div></div><div class="row"><div class="label">Вода 2–2,5 л</div><div class="days"><div class="chk  " onclick="toggle('food_5_0')">✓</div><div class="chk  " onclick="toggle('food_5_1')">✓</div><div class="chk  " onclick="toggle('food_5_2')">✓</div><div class="chk  " onclick="toggle('food_5_3')">✓</div><div class="chk  " onclick="toggle('food_5_4')">✓</div><div class="chk  " onclick="toggle('food_5_5')">✓</div><div class="chk  " onclick="toggle('food_5_6')">✓</div></div></div></div>
-</div>
+<div class="card" id="foodList"></div>
 
 <h2>🏋️ Тренировка A <span class="tag">Пн</span></h2>
-<div class="card" id="workoutA"><div class="row"><div class="chk big " onclick="toggle('A_0')">✓</div><div class="label">Присед на стул с гантелью<span class="sets">3×10–15 · 10 кг у груди</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_1')">✓</div><div class="label">Жим гантелей лёжа на полу<span class="sets">3×8–12 · 10 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_2')">✓</div><div class="label">Тяга гантели в наклоне одной рукой<span class="sets">3×10–12 · 10–18 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_3')">✓</div><div class="label">Ягодичный мост<span class="sets">3×12–15 · 18 кг / резинка</span></div></div><div class="row"><div class="chk big " onclick="toggle('A_4')">✓</div><div class="label">Планка<span class="sets">3×30–45 сек</span></div></div></div>
+<div class="card" id="workoutA"></div>
 
 <h2>🏋️ Тренировка B <span class="tag">Ср</span></h2>
-<div class="card" id="workoutB"><div class="row"><div class="chk big " onclick="toggle('B_0')">✓</div><div class="label">Румынская тяга с гантелями<span class="sets">3×10–12 · 10–18 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_1')">✓</div><div class="label">Жим гантелей стоя/сидя<span class="sets">3×8–12 · 10 кг</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_2')">✓</div><div class="label">Тяга резинки к поясу<span class="sets">3×12–15</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_3')">✓</div><div class="label">Подъём на ступеньку / выпад назад<span class="sets">3×8–10 на ногу</span></div></div><div class="row"><div class="chk big " onclick="toggle('B_4')">✓</div><div class="label">Боковая планка<span class="sets">3×30 сек</span></div></div></div>
+<div class="card" id="workoutB"></div>
 
 <h2>🚶 Шаги и ходьба</h2>
-<div class="card">
-  <div class="dayhead"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
-  <div id="walkList"><div class="row"><div class="label">8–10 тыс. шагов</div><div class="days"><div class="chk  " onclick="toggle('walk_0_0')">✓</div><div class="chk  " onclick="toggle('walk_0_1')">✓</div><div class="chk  " onclick="toggle('walk_0_2')">✓</div><div class="chk  " onclick="toggle('walk_0_3')">✓</div><div class="chk  " onclick="toggle('walk_0_4')">✓</div><div class="chk  " onclick="toggle('walk_0_5')">✓</div><div class="chk  " onclick="toggle('walk_0_6')">✓</div></div></div><div class="row"><div class="label">Ходьба 30–60 мин</div><div class="days"><div class="chk  " onclick="toggle('walk_1_0')">✓</div><div class="chk  " onclick="toggle('walk_1_1')">✓</div><div class="chk  " onclick="toggle('walk_1_2')">✓</div><div class="chk  " onclick="toggle('walk_1_3')">✓</div><div class="chk  " onclick="toggle('walk_1_4')">✓</div><div class="chk  " onclick="toggle('walk_1_5')">✓</div><div class="chk  " onclick="toggle('walk_1_6')">✓</div></div></div></div>
-</div>
+<div class="card" id="walkList"></div>
 
 <h2>📊 Раз в неделю</h2>
-<div class="card" id="weekly"><div class="row"><div class="chk big " onclick="toggle('wk_0')">✓</div><div class="label">Взвеситься утром натощак</div></div><div class="row"><div class="chk big " onclick="toggle('wk_1')">✓</div><div class="label">Записать вес</div></div><div class="row"><div class="chk big " onclick="toggle('wk_2')">✓</div><div class="label">Замерить живот/грудь/бёдра</div></div><div class="row"><div class="chk big " onclick="toggle('wk_3')">✓</div><div class="label">Сфотографироваться</div></div><div class="row"><div class="chk big " onclick="toggle('wk_4')">✓</div><div class="label">Спланировать меню на неделю</div></div></div>
+<div class="card" id="weekly"></div>
+
+<h2>🧹 Сброс галочек</h2>
+<div class="card">
+  <button class="btn-warn" onclick="clearChecks()">Очистить все чекбоксы (начать неделю заново)</button>
+  <div class="hint">Вес и история веса останутся.</div>
+</div>
 
 <h2>💾 Данные</h2>
 <div class="card">
-  <button class="btn2 btn-green" onclick="downloadFile()">Скачать файл плана (сохранит данные)</button>
+  <button class="btn2 btn-green" onclick="downloadFile()">Скачать файл плана</button>
   <button class="btn2" onclick="copyData()">Скопировать данные (бэкап)</button>
-  <textarea id="backup" placeholder="Сюда можно вставить бэкап и нажать 'Восстановить'" spellcheck="false"></textarea>
+  <textarea id="backup" placeholder="Вставь бэкап и нажми 'Восстановить'" spellcheck="false"></textarea>
   <button class="btn2" onclick="restoreData()">Восстановить из поля выше</button>
   <div class="hint" id="saveInfo"></div>
 </div>
 
 <div style="text-align:center; margin:18px 0 8px;">
-  <button class="reset" onclick="resetAll()">Сбросить всё</button>
+  <button class="reset" onclick="resetAll()">Сбросить всё (включая вес)</button>
 </div>
 
 <script>
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-const KEY = 'fitnessPlan_v4';
+const KEY = 'fitnessPlan_v5';
 let state = load();
 
 function load(){
@@ -169,17 +155,18 @@ function toggle(id){
   state.checks[id] = !state.checks[id];
   save(); render();
 }
-function chk(id, big){
+function chk(id, big, dayLabel){
   const on = !!state.checks[id];
-  return `<div class="chk ${big?'big':''} ${on?'on':''}" onclick="toggle('${id}')">✓</div>`;
+  const lbl = dayLabel ? `<span>${dayLabel}</span>` : '';
+  return `<div class="cell">${lbl}<div class="chk ${big?'big':''} ${on?'on':''}" onclick="toggle('${id}')">✓</div></div>`;
 }
 
 const FOOD = [
-  ['Белковый завтрак','яйца/творог'],
-  ['Белок в обед','150–200 г'],
-  ['Белок в ужин',''],
-  ['160–180 г белка за день',''],
-  ['Сладкое/фастфуд ≤ 1 раза',''],
+  ['Белковый завтрак','яйца / творог — 25–30 г белка'],
+  ['Белок в обед','150–200 г мяса/рыбы'],
+  ['Белок в ужин','150–200 г'],
+  ['160–180 г белка за день','общая цель'],
+  ['Сладкое/фастфуд ≤ 1 раза','осознанно'],
   ['Вода 2–2,5 л',''],
 ];
 const WALK = [
@@ -208,15 +195,21 @@ const WEEKLY = [
   ['Спланировать меню на неделю',''],
 ];
 
-function weekRows(rows, prefix){
+// Питание: карточка с днями внутри
+function habitCards(rows, prefix){
   let html = '';
   rows.forEach((r, ri) => {
-    let days = '';
-    DAYS.forEach((d, di) => { days += chk(prefix+'_'+ri+'_'+di); });
-    html += `<div class="row"><div class="label">${r[0]}${r[1]?'<span class="sets">'+r[1]+'</span>':''}</div><div class="days">${days}</div></div>`;
+    let cells = '';
+    DAYS.forEach((d, di) => { cells += chk(prefix+'_'+ri+'_'+di, false, d); });
+    html += `<div class="habit">
+      <div class="title">${r[0]}</div>
+      ${r[1]?'<div class="desc">'+r[1]+'</div>':''}
+      <div class="days">${cells}</div>
+    </div>`;
   });
   return html;
 }
+// Тренировки / недельные — вертикальные строки
 function exList(rows, prefix){
   let html = '';
   rows.forEach((r, i) => {
@@ -227,8 +220,8 @@ function exList(rows, prefix){
 }
 
 function render(){
-  document.getElementById('foodList').innerHTML = weekRows(FOOD, 'food');
-  document.getElementById('walkList').innerHTML = weekRows(WALK, 'walk');
+  document.getElementById('foodList').innerHTML = habitCards(FOOD, 'food');
+  document.getElementById('walkList').innerHTML = habitCards(WALK, 'walk');
   document.getElementById('workoutA').innerHTML = exList(A, 'A');
   document.getElementById('workoutB').innerHTML = exList(B, 'B');
   document.getElementById('weekly').innerHTML = exList(WEEKLY, 'wk');
@@ -318,9 +311,15 @@ function drawChart(){
   pts.forEach(p=>{ctx.beginPath();ctx.arc(x(p.t),y(p.w),3.5,0,Math.PI*2);ctx.fill();});
 }
 
-/* ==== Скачивание файла и бэкап ==== */
+/* ==== очистка галочек ==== */
+function clearChecks(){
+  if(!confirm('Очистить все галочки? Вес и история веса останутся.')) return;
+  state.checks = {};
+  save(); render();
+}
+
+/* ==== скачивание и бэкап ==== */
 function downloadFile(){
-  // собираем текущую страницу как есть
   const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
   const blob = new Blob([html], {type:'text/html'});
   const a = document.createElement('a');
@@ -332,10 +331,9 @@ function downloadFile(){
 function copyData(){
   const txt = JSON.stringify(state);
   const ta = document.getElementById('backup');
-  ta.value = txt;
-  ta.select();
+  ta.value = txt; ta.select();
   try{ navigator.clipboard?.writeText(txt); }catch(e){}
-  alert('Данные в поле ниже. Скопируй их и сохрани (например, в заметки).');
+  alert('Данные в поле ниже — скопируй и сохрани.');
 }
 function restoreData(){
   const txt = document.getElementById('backup').value.trim();
@@ -347,7 +345,7 @@ function restoreData(){
   }catch(e){ alert('Ошибка: неверный формат'); }
 }
 function resetAll(){
-  if(!confirm('Сбросить все отметки и вес?')) return;
+  if(!confirm('Сбросить всё, включая вес?')) return;
   state = {checks:{}, weights:[]};
   save(); render();
 }
@@ -355,10 +353,5 @@ function resetAll(){
 window.addEventListener('resize', ()=>{ if(state.weights.length) drawChart(); });
 render();
 </script>
-
-
-  
-  
-
-
-</body></html>
+</body>
+</html>
