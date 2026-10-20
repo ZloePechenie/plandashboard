@@ -29,7 +29,6 @@
   .sub{color:var(--muted); font-size:14px; margin-bottom:4px;}
   .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:12px 10px; margin-bottom:14px;}
 
-  /* --- Питание: карточка на пункт --- */
   .habit{
     background:var(--card2); border:1px solid var(--border); border-radius:12px;
     padding:12px 12px 10px; margin-bottom:10px;
@@ -51,7 +50,6 @@
   .chk:active{transform:scale(.93);}
   .chk.big{width:46px; height:46px; aspect-ratio:auto; flex-shrink:0;}
 
-  /* --- Упражнения и недельные пункты --- */
   .row{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); min-height:56px;}
   .row:last-child{border-bottom:none;}
   .row .label{flex:1; font-size:15px; line-height:1.25; min-width:0;}
@@ -139,7 +137,7 @@
 
 <script>
 const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-const KEY = 'fitnessPlan_v5';
+const KEY = 'fitnessPlan_v6';
 let state = load();
 
 function load(){
@@ -172,6 +170,7 @@ const FOOD = [
 const WALK = [
   ['8–10 тыс. шагов',''],
   ['Ходьба 30–60 мин',''],
+  ['Бег / быстрая ходьба 20–30 мин',''],
 ];
 const A = [
   ['Присед на стул с гантелью','3×10–15 · 10 кг у груди'],
@@ -195,7 +194,6 @@ const WEEKLY = [
   ['Спланировать меню на неделю',''],
 ];
 
-// Питание: карточка с днями внутри
 function habitCards(rows, prefix){
   let html = '';
   rows.forEach((r, ri) => {
@@ -209,7 +207,6 @@ function habitCards(rows, prefix){
   });
   return html;
 }
-// Тренировки / недельные — вертикальные строки
 function exList(rows, prefix){
   let html = '';
   rows.forEach((r, i) => {
@@ -311,14 +308,12 @@ function drawChart(){
   pts.forEach(p=>{ctx.beginPath();ctx.arc(x(p.t),y(p.w),3.5,0,Math.PI*2);ctx.fill();});
 }
 
-/* ==== очистка галочек ==== */
 function clearChecks(){
   if(!confirm('Очистить все галочки? Вес и история веса останутся.')) return;
   state.checks = {};
   save(); render();
 }
 
-/* ==== скачивание и бэкап ==== */
 function downloadFile(){
   const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
   const blob = new Blob([html], {type:'text/html'});
